@@ -24,7 +24,7 @@ class MainApp extends StatelessWidget {
         home: child,
         navigatorKey: navigatorKey,
         onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.signInRoute,
+        initialRoute: Routes.splashRoute,
       ),
     );
   }

@@ -30,7 +30,7 @@ class SuccessDialog extends CustomDialogs {
       context: navigatorKey.currentContext!,
       builder: (context) => AlertDialog.adaptive(
         title: LottieBuilder.asset(LottyAssets.success),
-        content: Text(title ?? ''),
+        content: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text(title ?? '')]),
       ),
     );
   }
@@ -44,7 +44,12 @@ class FailureDialog extends CustomDialogs {
       context: navigatorKey.currentContext!,
       builder: (context) => AlertDialog.adaptive(
         title: LottieBuilder.asset(LottyAssets.error, height: 60.h, fit: BoxFit.contain),
-        content: Text(title ?? '', style: getMediumStyle(color: ColorManager.black, fontSize: 16)),
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(title ?? '', style: getMediumStyle(color: ColorManager.black, fontSize: 16)),
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:e_commerce_c18/core/routes_manager/routes.dart';
 import 'package:e_commerce_c18/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:e_commerce_c18/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:e_commerce_c18/features/auth/presentation/screens/splash_screen.dart';
 import 'package:e_commerce_c18/features/cart/screens/cart_screen.dart';
 import 'package:e_commerce_c18/features/main_layout/main_layout.dart';
 import 'package:e_commerce_c18/features/product_details/presentation/screen/product_details.dart';
@@ -12,6 +13,8 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.splashRoute:
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
       case Routes.cartRoute:
         return MaterialPageRoute(builder: (_) => const CartScreen());
       case Routes.mainRoute:

@@ -39,8 +39,8 @@ class _SignInScreenState extends State<SignInScreen> {
             if (state is LoginLoadingState) {
               LoadingDialog().show();
             } else if (state is LoginSuccessState) {
-              // Navigator.of(context).pop();
-              //
+              Navigator.of(context).pop();
+
               SuccessDialog().show(title: "Success");
             } else if (state is LoginFailureState) {
               Navigator.of(context).pop();

@@ -85,6 +85,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: TextFormField(
+            onTapUpOutside: (event) => FocusScope.of(context).unfocus(),
             maxLines: widget.maxLines ?? 1,
             controller: widget.controller,
             focusNode: widget.focusNode,
@@ -114,6 +115,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
               }
               return errorText;
             },
+
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(AppPadding.p12),
               hintText: widget.hint,

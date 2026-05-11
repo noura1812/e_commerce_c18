@@ -24,14 +24,32 @@ sealed class ErrorModel {
         print('--->${e.response?.statusCode}');
         if (e.response?.statusCode == 401) {
           return Failure<T>(
-            error: GeneralError(e.response?.data['message'] ?? "Incorrect email or password"),
+            error: GeneralError(
+              (e.response?.data is Map<String, dynamic>)
+                  ? _apiErrorHandler(e.response!.data as Map<String, dynamic>)
+                  : "Incorrect email or password",
+            ),
           );
         }
-        return Failure<T>(error: GeneralError(e.response?.data['message'] ?? "bad response"));
+        return Failure<T>(
+          error: GeneralError(_apiErrorHandler(e.response!.data as Map<String, dynamic>)),
+        );
       case DioExceptionType.cancel:
       case DioExceptionType.unknown:
         return Failure<T>(error: GeneralError());
     }
+  }
+
+  static String _apiErrorHandler(Map<String, dynamic> response) {
+    print('==-->$response');
+    if (response['errors'] != null) {
+      print('==--->${response['errors']}');
+      return ((response['errors']['param'] ?? '') + ' ' + (response['errors']['msg'] ?? ''))
+          .toString();
+    }
+    if (response['message'] != null) return response['message'].toString();
+
+    return "bad response";
   }
 
   static Failure<T> handelError<T>(dynamic e) {

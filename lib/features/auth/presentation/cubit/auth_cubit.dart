@@ -25,5 +25,14 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  signup() {}
+  signup(UserEntity user) async {
+    emit(SignupLoadingState());
+    CustomResponse<UserEntity> response = await _signupUsecase(user);
+    switch (response) {
+      case Success<UserEntity>():
+        emit(SignupSuccessState(userEntity: response.data));
+      case Failure<UserEntity>():
+        emit(SignupFailureState(failure: response));
+    }
+  }
 }
