@@ -38,8 +38,14 @@ import '../../features/products/data/repositories/products_repo_impl.dart'
     as _i83;
 import '../../features/products/domain/repositories/products_repo.dart'
     as _i841;
+import '../../features/products/domain/usecases/edit_wishlist_usecase.dart'
+    as _i1017;
 import '../../features/products/domain/usecases/get_products_by_sub_cat.dart'
     as _i292;
+import '../../features/products/domain/usecases/get_wishlist_products_usecase.dart'
+    as _i592;
+import '../../features/products/presentation/cubit/cubit/wishlist_cubit.dart'
+    as _i101;
 import '../../features/products/presentation/cubit/products_cubit.dart'
     as _i911;
 import '../services/secured_storage_service.dart' as _i524;
@@ -67,14 +73,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i364.AuthDataSource>(
       () => _i364.AuthNetworkDataSource(dio: gh<_i361.Dio>()),
     );
+    gh.factory<_i156.ProductsDataSource>(
+      () => _i156.ProductsRemoteDataSource(
+        gh<_i524.SecuredStorageService>(),
+        dio: gh<_i361.Dio>(),
+      ),
+    );
     gh.factory<_i976.AuthRepo>(
       () => _i984.AuthRepoImpl(
         gh<_i524.SecuredStorageService>(),
         authDataSource: gh<_i364.AuthDataSource>(),
       ),
-    );
-    gh.factory<_i156.ProductsDataSource>(
-      () => _i156.ProductsRemoteDataSource(dio: gh<_i361.Dio>()),
     );
     gh.factory<_i399.CategoriesDataSource>(
       () => _i399.CategoriesNetworkDataSource(dio: gh<_i361.Dio>()),
@@ -106,8 +115,16 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i117.AuthCubit(gh<_i911.LoginUsecase>(), gh<_i134.SignUpUsecase>()),
     );
+    gh.factory<_i1017.EditWishlistUsecase>(
+      () => _i1017.EditWishlistUsecase(productsRepo: gh<_i841.ProductsRepo>()),
+    );
     gh.factory<_i292.GetProductsBySubCatUsecase>(
       () => _i292.GetProductsBySubCatUsecase(
+        productsRepo: gh<_i841.ProductsRepo>(),
+      ),
+    );
+    gh.factory<_i592.GetWishlistProductsUsecase>(
+      () => _i592.GetWishlistProductsUsecase(
         productsRepo: gh<_i841.ProductsRepo>(),
       ),
     );
@@ -119,6 +136,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i911.ProductsCubit>(
       () => _i911.ProductsCubit(gh<_i292.GetProductsBySubCatUsecase>()),
+    );
+    gh.singleton<_i101.WishlistCubit>(
+      () => _i101.WishlistCubit(
+        gh<_i592.GetWishlistProductsUsecase>(),
+        gh<_i1017.EditWishlistUsecase>(),
+      ),
     );
     return this;
   }

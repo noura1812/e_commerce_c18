@@ -6,6 +6,7 @@ class Endpoints {
   static const String signup = '/auth/signup';
   static const String categories = '/categories';
   static const String products = '/products';
+  static const String wishlist = '/wishlist';
   static String subCategoriesOfCategory(String id) => '/categories/$id/subcategories';
 
   //

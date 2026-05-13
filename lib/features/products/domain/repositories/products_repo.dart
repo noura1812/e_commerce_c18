@@ -3,4 +3,6 @@ import 'package:e_commerce_c18/features/products/domain/entities/product_entity.
 
 abstract class ProductsRepo {
   Future<CustomResponse<List<ProductEntity>>> getProductsBySubCat(String subCatId);
+  Future<CustomResponse<List<ProductEntity>>> getWishlist();
+  Future<CustomResponse<void>> editWishlist(String productId, bool isAdd);
 }

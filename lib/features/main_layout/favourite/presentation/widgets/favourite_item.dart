@@ -6,12 +6,13 @@ import 'package:e_commerce_c18/core/routes_manager/routes.dart';
 import 'package:e_commerce_c18/core/widget/heart_button.dart';
 import 'package:e_commerce_c18/features/main_layout/favourite/presentation/widgets/add_to_cart_button.dart';
 import 'package:e_commerce_c18/features/main_layout/favourite/presentation/widgets/favourite_item_details.dart';
+import 'package:e_commerce_c18/features/products/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FavoriteItem extends StatelessWidget {
   const FavoriteItem({super.key, required this.product});
-  final Map<String, dynamic> product;
+  final ProductEntity product;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -39,7 +40,7 @@ class FavoriteItem extends StatelessWidget {
                   width: AppSize.s120.w,
                   height: AppSize.s135.h,
                   fit: BoxFit.cover,
-                  imageUrl: product["imageUrl"],
+                  imageUrl: product.imageCover ?? '',
                   placeholder: (context, url) =>
                       Center(child: CircularProgressIndicator(color: ColorManager.primary)),
                   errorWidget: (context, url, error) =>
