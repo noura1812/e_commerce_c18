@@ -32,6 +32,16 @@ import '../../features/categories/domain/usecases/get_sub_categories_usecase.dar
     as _i963;
 import '../../features/categories/presentation/cubit/categories_cubit.dart'
     as _i802;
+import '../../features/products/data/datasources/products_data_source.dart'
+    as _i156;
+import '../../features/products/data/repositories/products_repo_impl.dart'
+    as _i83;
+import '../../features/products/domain/repositories/products_repo.dart'
+    as _i841;
+import '../../features/products/domain/usecases/get_products_by_sub_cat.dart'
+    as _i292;
+import '../../features/products/presentation/cubit/products_cubit.dart'
+    as _i911;
 import '../services/secured_storage_service.dart' as _i524;
 import 'model.network_dependency.dart' as _i867;
 import 'model.secure_storage.dart' as _i700;
@@ -63,6 +73,9 @@ extension GetItInjectableX on _i174.GetIt {
         authDataSource: gh<_i364.AuthDataSource>(),
       ),
     );
+    gh.factory<_i156.ProductsDataSource>(
+      () => _i156.ProductsRemoteDataSource(dio: gh<_i361.Dio>()),
+    );
     gh.factory<_i399.CategoriesDataSource>(
       () => _i399.CategoriesNetworkDataSource(dio: gh<_i361.Dio>()),
     );
@@ -77,6 +90,9 @@ extension GetItInjectableX on _i174.GetIt {
         categoriesDataSource: gh<_i399.CategoriesDataSource>(),
       ),
     );
+    gh.factory<_i841.ProductsRepo>(
+      () => _i83.ProductsRepoImpl(gh<_i156.ProductsDataSource>()),
+    );
     gh.factory<_i76.GetCategoriesUsecase>(
       () =>
           _i76.GetCategoriesUsecase(categoriesRepo: gh<_i594.CategoriesRepo>()),
@@ -90,11 +106,19 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i117.AuthCubit(gh<_i911.LoginUsecase>(), gh<_i134.SignUpUsecase>()),
     );
+    gh.factory<_i292.GetProductsBySubCatUsecase>(
+      () => _i292.GetProductsBySubCatUsecase(
+        productsRepo: gh<_i841.ProductsRepo>(),
+      ),
+    );
     gh.singleton<_i802.CategoriesCubit>(
       () => _i802.CategoriesCubit(
         gh<_i76.GetCategoriesUsecase>(),
         gh<_i963.GetSubCategoriesUsecase>(),
       ),
+    );
+    gh.factory<_i911.ProductsCubit>(
+      () => _i911.ProductsCubit(gh<_i292.GetProductsBySubCatUsecase>()),
     );
     return this;
   }

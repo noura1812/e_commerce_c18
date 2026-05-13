@@ -4,11 +4,10 @@ import 'package:e_commerce_c18/core/resources/font_manager.dart';
 import 'package:e_commerce_c18/core/resources/styles_manager.dart';
 import 'package:e_commerce_c18/core/resources/values_manager.dart';
 import 'package:e_commerce_c18/features/categories/presentation/cubit/categories_cubit.dart';
-import 'package:e_commerce_c18/features/main_layout/categories/presentation/widgets/category_card_item.dart';
+import 'package:e_commerce_c18/features/categories/presentation/widgets/category_card_item.dart';
+import 'package:e_commerce_c18/features/categories/presentation/widgets/sub_category_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'sub_category_item.dart';
 
 class SubCategoriesList extends StatelessWidget {
   const SubCategoriesList({super.key});

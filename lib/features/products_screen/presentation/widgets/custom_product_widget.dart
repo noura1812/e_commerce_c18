@@ -2,29 +2,20 @@ import 'package:e_commerce_c18/core/resources/color_manager.dart';
 import 'package:e_commerce_c18/core/resources/styles_manager.dart';
 import 'package:e_commerce_c18/core/routes_manager/routes.dart';
 import 'package:e_commerce_c18/core/widget/heart_button.dart';
+import 'package:e_commerce_c18/features/products/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomProductWidget extends StatelessWidget {
   final double width;
   final double height;
-  final String image;
-  final String title;
-  final String description;
-  final double price;
-  final double discountPercentage;
-  final double rating;
+  final ProductEntity product;
 
   const CustomProductWidget({
     super.key,
     required this.width,
     required this.height,
-    required this.image,
-    required this.title,
-    required this.description,
-    required this.price,
-    required this.discountPercentage,
-    required this.rating,
+    required this.product,
   });
 
   String truncateTitle(String title) {
@@ -41,7 +32,7 @@ class CustomProductWidget extends StatelessWidget {
     if (words.length <= 4) {
       return description;
     } else {
-      return "${words.sublist(0, 4).join(' ')}..";
+      return "${words.sublist(0, 2).join(' ')}..";
     }
   }
 
@@ -81,7 +72,7 @@ class CustomProductWidget extends StatelessWidget {
                   // ),
                   ClipRRect(
                     borderRadius: BorderRadius.vertical(top: Radius.circular(14.r)),
-                    child: Image.asset(image, fit: BoxFit.cover, width: width),
+                    child: Image.network(product.imageCover ?? '', fit: BoxFit.cover, width: width),
                   ),
                   Positioned(
                     top: height * 0.01,
@@ -99,12 +90,14 @@ class CustomProductWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      truncateTitle(title),
+                      truncateTitle(product.title ?? ''),
                       style: getMediumStyle(color: ColorManager.textColor, fontSize: 14.sp),
                     ),
                     SizedBox(height: height * 0.002),
                     Text(
-                      truncateDescription(description),
+                      (product.description ?? ''),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: getRegularStyle(color: ColorManager.textColor, fontSize: 14.sp),
                     ),
                     SizedBox(height: height * 0.01),
@@ -114,10 +107,10 @@ class CustomProductWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "EGP $price",
+                            "EGP ${product.price}",
                             style: getRegularStyle(color: ColorManager.textColor, fontSize: 14.sp),
                           ),
-                          Text("$discountPercentage %", style: getTextWithLine()),
+                          //   Text("${product.discountPercentage} %", style: getTextWithLine()),
                         ],
                       ),
                     ),
@@ -125,25 +118,25 @@ class CustomProductWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
-                          // width: width * 0.22,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Review ($rating)",
-                                style: getRegularStyle(
-                                  color: ColorManager.textColor,
-                                  fontSize: 12.sp,
+                        if (product.ratingsAverage != null)
+                          SizedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Review (${product.ratingsAverage})",
+                                  style: getRegularStyle(
+                                    color: ColorManager.textColor,
+                                    fontSize: 12.sp,
+                                  ),
                                 ),
-                              ),
-                              const Icon(
-                                Icons.star_rate_rounded,
-                                color: ColorManager.starRateColor,
-                              ),
-                            ],
+                                const Icon(
+                                  Icons.star_rate_rounded,
+                                  color: ColorManager.starRateColor,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
                         const Spacer(),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(100),
