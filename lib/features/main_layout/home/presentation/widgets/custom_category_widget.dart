@@ -1,12 +1,15 @@
-import 'package:e_commerce_c18/core/resources/assets_manager.dart';
-import 'package:e_commerce_c18/core/resources/color_manager.dart';
-import 'package:e_commerce_c18/core/resources/styles_manager.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomCategoryWidget extends StatelessWidget {
-  const CustomCategoryWidget({super.key});
+import 'package:e_commerce_c18/core/resources/assets_manager.dart';
+import 'package:e_commerce_c18/core/resources/color_manager.dart';
+import 'package:e_commerce_c18/core/resources/styles_manager.dart';
+import 'package:e_commerce_c18/features/categories/domain/entities/category_entity.dart';
 
+class CustomCategoryWidget extends StatelessWidget {
+  const CustomCategoryWidget({Key? key, required this.categoryEntity}) : super(key: key);
+  final CategoryEntity categoryEntity;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,12 +41,12 @@ class CustomCategoryWidget extends StatelessWidget {
             height: 100.h,
             width: 100.w,
             decoration: const BoxDecoration(shape: BoxShape.circle),
-            child: Image.asset(ImageAssets.categoryHomeImage, fit: BoxFit.cover),
+            child: Image.network(categoryEntity.image!, fit: BoxFit.cover),
           ),
         ),
         SizedBox(height: 8.h),
         Text(
-          "men's fashion",
+          categoryEntity.name ?? '',
           style: getRegularStyle(color: ColorManager.darkBlue, fontSize: 14.sp),
         ),
       ],

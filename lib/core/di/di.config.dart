@@ -20,6 +20,18 @@ import '../../features/auth/domain/repository/auth_repo.dart' as _i976;
 import '../../features/auth/domain/usecase/login_usecase.dart' as _i911;
 import '../../features/auth/domain/usecase/sign_up_usecase.dart' as _i134;
 import '../../features/auth/presentation/cubit/auth_cubit.dart' as _i117;
+import '../../features/categories/data/datasources/categories_data_source.dart'
+    as _i399;
+import '../../features/categories/data/repositories/categories_repo_impl.dart'
+    as _i137;
+import '../../features/categories/domain/repositories/categories_repo.dart'
+    as _i594;
+import '../../features/categories/domain/usecases/get_categories_usecase.dart'
+    as _i76;
+import '../../features/categories/domain/usecases/get_sub_categories_usecase.dart'
+    as _i963;
+import '../../features/categories/presentation/cubit/categories_cubit.dart'
+    as _i802;
 import '../services/secured_storage_service.dart' as _i524;
 import 'model.network_dependency.dart' as _i867;
 import 'model.secure_storage.dart' as _i700;
@@ -51,15 +63,38 @@ extension GetItInjectableX on _i174.GetIt {
         authDataSource: gh<_i364.AuthDataSource>(),
       ),
     );
+    gh.factory<_i399.CategoriesDataSource>(
+      () => _i399.CategoriesNetworkDataSource(dio: gh<_i361.Dio>()),
+    );
     gh.factory<_i911.LoginUsecase>(
       () => _i911.LoginUsecase(authRepo: gh<_i976.AuthRepo>()),
     );
     gh.factory<_i134.SignUpUsecase>(
       () => _i134.SignUpUsecase(authRepo: gh<_i976.AuthRepo>()),
     );
+    gh.factory<_i594.CategoriesRepo>(
+      () => _i137.CategoriesRepoImpl(
+        categoriesDataSource: gh<_i399.CategoriesDataSource>(),
+      ),
+    );
+    gh.factory<_i76.GetCategoriesUsecase>(
+      () =>
+          _i76.GetCategoriesUsecase(categoriesRepo: gh<_i594.CategoriesRepo>()),
+    );
+    gh.factory<_i963.GetSubCategoriesUsecase>(
+      () => _i963.GetSubCategoriesUsecase(
+        categoriesRepo: gh<_i594.CategoriesRepo>(),
+      ),
+    );
     gh.factory<_i117.AuthCubit>(
       () =>
           _i117.AuthCubit(gh<_i911.LoginUsecase>(), gh<_i134.SignUpUsecase>()),
+    );
+    gh.singleton<_i802.CategoriesCubit>(
+      () => _i802.CategoriesCubit(
+        gh<_i76.GetCategoriesUsecase>(),
+        gh<_i963.GetSubCategoriesUsecase>(),
+      ),
     );
     return this;
   }

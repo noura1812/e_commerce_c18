@@ -1,7 +1,10 @@
+import 'package:e_commerce_c18/core/di/di.dart';
 import 'package:e_commerce_c18/core/resources/color_manager.dart';
 import 'package:e_commerce_c18/core/resources/values_manager.dart';
+import 'package:e_commerce_c18/features/categories/presentation/cubit/categories_cubit.dart';
 import 'package:e_commerce_c18/features/main_layout/categories/presentation/widgets/category_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoriesList extends StatefulWidget {
   const CategoriesList({super.key});
@@ -39,10 +42,13 @@ class _CategoriesListState extends State<CategoriesList> {
             topLeft: Radius.circular(AppSize.s12),
             bottomLeft: Radius.circular(AppSize.s12),
           ),
-          child: ListView.builder(
-            itemCount: 20,
-            itemBuilder: (context, index) =>
-                CategoryItem(index, "Laptops & Electronics", selectedIndex == index, onItemClick),
+          child: BlocBuilder<CategoriesCubit, CategoriesState>(
+            builder: (context, state) {
+              return ListView.builder(
+                itemCount: state.categories?.length ?? 0,
+                itemBuilder: (context, index) => CategoryItem(state.categories![index]),
+              );
+            },
           ),
         ),
       ),

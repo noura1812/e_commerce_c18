@@ -1,14 +1,15 @@
+import 'package:e_commerce_c18/core/resources/assets_manager.dart';
 import 'package:e_commerce_c18/core/resources/color_manager.dart';
 import 'package:e_commerce_c18/core/resources/styles_manager.dart';
 import 'package:e_commerce_c18/core/resources/values_manager.dart';
 import 'package:e_commerce_c18/core/routes_manager/routes.dart';
+import 'package:e_commerce_c18/features/categories/domain/entities/category_entity.dart';
 import 'package:flutter/material.dart';
 
 class SubCategoryItem extends StatelessWidget {
-  final String title;
-  final String image;
-  final Function navigation;
-  const SubCategoryItem(this.title, this.image, this.navigation, {super.key});
+  final CategoryEntity categoryEntity;
+
+  const SubCategoryItem(this.categoryEntity, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +28,16 @@ class SubCategoryItem extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(AppSize.s10),
-                child: Image.asset(image, fit: BoxFit.cover),
+                child: Image.asset(ImageAssets.subcategoryCardImage, fit: BoxFit.cover),
               ),
             ),
           ),
-          Text(title, style: getRegularStyle(color: ColorManager.primary)),
+          Text(
+            categoryEntity.name ?? '',
+            style: getRegularStyle(color: ColorManager.primary),
+            // maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
         ],
       ),
     );

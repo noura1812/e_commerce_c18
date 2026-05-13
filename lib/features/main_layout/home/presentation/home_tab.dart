@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'package:e_commerce_c18/core/di/di.dart';
+import 'package:e_commerce_c18/features/categories/presentation/cubit/categories_cubit.dart';
 import 'package:e_commerce_c18/features/main_layout/home/presentation/widgets/custom_category_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/resources/assets_manager.dart';
@@ -55,13 +58,25 @@ class _HomeTabState extends State<HomeTab> {
               CustomSectionBar(sectionNname: 'Categories', function: () {}),
               SizedBox(
                 height: 270.h,
-                child: GridView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return const CustomCategoryWidget();
+                child: BlocBuilder<CategoriesCubit, CategoriesState>(
+                  builder: (context, state) {
+                    if (state.catLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    if (state.categoriesFailure != null) {
+                      return Center(child: Text(state.categoriesFailure.toString()));
+                    }
+                    return GridView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return CustomCategoryWidget(categoryEntity: state.categories![index]);
+                      },
+                      itemCount: (state.categories ?? []).length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      ),
+                    );
                   },
-                  itemCount: 20,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                 ),
               ),
               // SizedBox(height: 12.h),

@@ -2,22 +2,23 @@ import 'package:e_commerce_c18/core/resources/color_manager.dart';
 import 'package:e_commerce_c18/core/resources/font_manager.dart';
 import 'package:e_commerce_c18/core/resources/styles_manager.dart';
 import 'package:e_commerce_c18/core/resources/values_manager.dart';
+import 'package:e_commerce_c18/features/categories/domain/entities/category_entity.dart';
+import 'package:e_commerce_c18/features/categories/presentation/cubit/categories_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoryItem extends StatelessWidget {
-  final int index;
-  final String title;
+  final CategoryEntity categoryEntity;
 
-  final bool isSelected;
-  final Function onItemClick;
-
-  const CategoryItem(this.index, this.title, this.isSelected, this.onItemClick, {super.key});
+  const CategoryItem(this.categoryEntity, {super.key});
 
   @override
   Widget build(BuildContext context) {
     // Handle item click by calling onItemClick callback
+    CategoryEntity? selectedCat = context.watch<CategoriesCubit>().state.selectedCategory;
+    bool isSelected = categoryEntity == selectedCat;
     return InkWell(
-      onTap: () => onItemClick(index),
+      onTap: () => context.read<CategoriesCubit>().selectCat(categoryEntity),
       child: Container(
         // Set background color based on selection
         color: isSelected ? ColorManager.white : Colors.transparent,
@@ -44,7 +45,7 @@ class CategoryItem extends StatelessWidget {
                   horizontal: AppPadding.p8,
                 ),
                 child: Text(
-                  title,
+                  categoryEntity.name ?? '',
                   textAlign: TextAlign.start,
                   style: getMediumStyle(color: ColorManager.primary, fontSize: FontSize.s14),
                 ),
