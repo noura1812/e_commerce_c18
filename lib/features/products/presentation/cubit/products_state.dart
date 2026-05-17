@@ -2,9 +2,9 @@ part of 'products_cubit.dart';
 
 sealed class ProductsState extends Equatable {
   const ProductsState();
-
   @override
-  List<Object> get props => [];
+  // TODO: implement props
+  List<Object?> get props => [];
 }
 
 class ProductsInitial extends ProductsState {}

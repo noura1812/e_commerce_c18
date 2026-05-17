@@ -3,7 +3,9 @@ import 'package:e_commerce_c18/core/resources/styles_manager.dart';
 import 'package:e_commerce_c18/core/routes_manager/routes.dart';
 import 'package:e_commerce_c18/core/widget/heart_button.dart';
 import 'package:e_commerce_c18/features/products/domain/entities/product_entity.dart';
+import 'package:e_commerce_c18/features/products/presentation/cubit/cubit/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomProductWidget extends StatelessWidget {
@@ -77,7 +79,10 @@ class CustomProductWidget extends StatelessWidget {
                   Positioned(
                     top: height * 0.01,
                     right: width * 0.02,
-                    child: HeartButton(onTap: () {}),
+                    child: HeartButton(
+                      isFav: context.read<WishlistCubit>().isInWishList(product),
+                      product: product,
+                    ),
                   ),
                 ],
               ),

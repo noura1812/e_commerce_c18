@@ -15,6 +15,9 @@ final class GetWishlistSuccess extends WishlistState {
   final List<ProductEntity> products;
 
   const GetWishlistSuccess({required this.products});
+  @override
+  // TODO: implement props
+  List<Object> get props => [products];
 }
 
 final class GetWishlistFailure extends WishlistState {

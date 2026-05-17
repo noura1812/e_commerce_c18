@@ -118,8 +118,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1017.EditWishlistUsecase>(
       () => _i1017.EditWishlistUsecase(productsRepo: gh<_i841.ProductsRepo>()),
     );
-    gh.factory<_i292.GetProductsBySubCatUsecase>(
-      () => _i292.GetProductsBySubCatUsecase(
+    gh.factory<_i292.GetProductsWithFiltersUsecase>(
+      () => _i292.GetProductsWithFiltersUsecase(
         productsRepo: gh<_i841.ProductsRepo>(),
       ),
     );
@@ -135,7 +135,7 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.factory<_i911.ProductsCubit>(
-      () => _i911.ProductsCubit(gh<_i292.GetProductsBySubCatUsecase>()),
+      () => _i911.ProductsCubit(gh<_i292.GetProductsWithFiltersUsecase>()),
     );
     gh.singleton<_i101.WishlistCubit>(
       () => _i101.WishlistCubit(

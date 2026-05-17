@@ -4,7 +4,9 @@ import 'package:e_commerce_c18/core/resources/font_manager.dart';
 import 'package:e_commerce_c18/core/resources/styles_manager.dart';
 import 'package:e_commerce_c18/core/resources/values_manager.dart';
 import 'package:e_commerce_c18/core/routes_manager/routes.dart';
+import 'package:e_commerce_c18/features/products/presentation/cubit/products_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -30,43 +32,66 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             children: [
               Expanded(
-                child: TextFormField(
-                  cursorColor: ColorManager.primary,
-                  style: getRegularStyle(color: ColorManager.primary, fontSize: FontSize.s16),
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: AppMargin.m12.w,
-                      vertical: AppMargin.m8.h,
+                child: InkWell(
+                  onTap: automaticallyImplyLeading == true
+                      ? null
+                      : () => Navigator.pushNamed(context, Routes.productsScreenRoute),
+                  child: TextFormField(
+                    enabled: automaticallyImplyLeading == true,
+                    cursorColor: ColorManager.primary,
+                    onChanged: (value) {
+                      {
+                        context.read<ProductsCubit>().getProductsWithSearch(text: value);
+                      }
+                    },
+                    style: getRegularStyle(color: ColorManager.primary, fontSize: FontSize.s16),
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: AppMargin.m12.w,
+                        vertical: AppMargin.m8.h,
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10000),
+                        borderSide: BorderSide(width: AppSize.s1, color: ColorManager.primary),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10000),
+                        borderSide: BorderSide(width: AppSize.s1, color: ColorManager.primary),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10000),
+                        borderSide: BorderSide(width: AppSize.s1, color: ColorManager.primary),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10000),
+                        borderSide: BorderSide(width: AppSize.s1, color: ColorManager.primary),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10000),
+                        borderSide: BorderSide(width: AppSize.s1, color: ColorManager.error),
+                      ),
+                      prefixIcon: ImageIcon(
+                        AssetImage(IconsAssets.icSearch),
+                        color: ColorManager.primary,
+                      ),
+                      hintText: "what do you search for?",
+                      hintStyle: getRegularStyle(
+                        color: ColorManager.primary,
+                        fontSize: FontSize.s16,
+                      ),
                     ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10000),
-                      borderSide: BorderSide(width: AppSize.s1, color: ColorManager.primary),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10000),
-                      borderSide: BorderSide(width: AppSize.s1, color: ColorManager.primary),
-                    ),
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10000),
-                      borderSide: BorderSide(width: AppSize.s1, color: ColorManager.primary),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10000),
-                      borderSide: BorderSide(width: AppSize.s1, color: ColorManager.primary),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10000),
-                      borderSide: BorderSide(width: AppSize.s1, color: ColorManager.error),
-                    ),
-                    prefixIcon: ImageIcon(
-                      AssetImage(IconsAssets.icSearch),
-                      color: ColorManager.primary,
-                    ),
-                    hintText: "what do you search for?",
-                    hintStyle: getRegularStyle(color: ColorManager.primary, fontSize: FontSize.s16),
                   ),
                 ),
               ),
+              if (automaticallyImplyLeading == true)
+                IconButton(
+                  onPressed: () => context.read<ProductsCubit>().getProductsWithSearch(
+                    sort: context.read<ProductsCubit>().filter.sort == '-price'
+                        ? "price"
+                        : '-price',
+                  ),
+                  icon: Icon(Icons.sort_sharp, color: ColorManager.primary),
+                ),
               IconButton(
                 onPressed: () => Navigator.pushNamed(context, Routes.cartRoute),
                 icon: ImageIcon(AssetImage(IconsAssets.icCart), color: ColorManager.primary),

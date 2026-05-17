@@ -1,3 +1,4 @@
+import 'package:e_commerce_c18/core/bloc_obs/bloc_obs.dart';
 import 'package:e_commerce_c18/core/di/di.dart';
 import 'package:e_commerce_c18/core/routes_manager/routes.dart';
 import 'package:e_commerce_c18/features/products/presentation/cubit/cubit/wishlist_cubit.dart';
@@ -8,7 +9,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/routes_manager/route_generator.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
+
   configureDependencies();
+
   runApp(const MainApp());
 }
 

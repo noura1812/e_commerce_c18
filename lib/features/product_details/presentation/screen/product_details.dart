@@ -43,18 +43,18 @@ class ProductDetails extends StatelessWidget {
             children: [
               const ProductSlider(
                 items: [
-                  ProductItem(
-                    imageUrl:
-                        'https://assets.adidas.com/images/w_1880,f_auto,q_auto/6776024790f445b0873ee66fdcde54a1_9366/GX6544_HM3_hover.jpg',
-                  ),
-                  ProductItem(
-                    imageUrl:
-                        'https://assets.adidas.com/images/w_1880,f_auto,q_auto/6776024790f445b0873ee66fdcde54a1_9366/GX6544_HM3_hover.jpg',
-                  ),
-                  ProductItem(
-                    imageUrl:
-                        "https://assets.adidas.com/images/w_1880,f_auto,q_auto/6776024790f445b0873ee66fdcde54a1_9366/GX6544_HM3_hover.jpg",
-                  ),
+                  // ProductItem(
+                  //   imageUrl:
+                  //       'https://assets.adidas.com/images/w_1880,f_auto,q_auto/6776024790f445b0873ee66fdcde54a1_9366/GX6544_HM3_hover.jpg',
+                  // ),
+                  // ProductItem(
+                  //   imageUrl:
+                  //       'https://assets.adidas.com/images/w_1880,f_auto,q_auto/6776024790f445b0873ee66fdcde54a1_9366/GX6544_HM3_hover.jpg',
+                  // ),
+                  // ProductItem(
+                  //   imageUrl:
+                  //       "https://assets.adidas.com/images/w_1880,f_auto,q_auto/6776024790f445b0873ee66fdcde54a1_9366/GX6544_HM3_hover.jpg",
+                  // ),
                 ],
                 initialIndex: 0,
               ),

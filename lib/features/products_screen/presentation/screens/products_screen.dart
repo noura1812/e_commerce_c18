@@ -10,13 +10,13 @@ import '../../../../core/widget/home_screen_app_bar.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({super.key, required this.id});
-  final String id;
+  final String? id;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return BlocProvider(
-      create: (context) => getIt<ProductsCubit>()..getProductsBySubCat(id),
+      create: (context) => getIt<ProductsCubit>()..getProductsWithSearch(id: id),
       child: Scaffold(
         appBar: const HomeScreenAppBar(automaticallyImplyLeading: true),
         body: BlocBuilder<ProductsCubit, ProductsState>(

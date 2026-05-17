@@ -1,4 +1,6 @@
-class ProductEntity {
+import 'package:equatable/equatable.dart';
+
+class ProductEntity extends Equatable {
   int? sold;
   List<String>? images;
   int? ratingsQuantity;
@@ -23,4 +25,7 @@ class ProductEntity {
     this.imageCover,
     this.ratingsAverage,
   });
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id];
 }
