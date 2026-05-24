@@ -2,10 +2,10 @@ import 'package:e_commerce_c18/core/routes_manager/routes.dart';
 import 'package:e_commerce_c18/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:e_commerce_c18/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:e_commerce_c18/features/auth/presentation/screens/splash_screen.dart';
-import 'package:e_commerce_c18/features/cart/screens/cart_screen.dart';
+import 'package:e_commerce_c18/features/cart/presentation/screens/cart_screen.dart';
 import 'package:e_commerce_c18/features/main_layout/main_layout.dart';
-import 'package:e_commerce_c18/features/product_details/presentation/screen/product_details.dart';
-import 'package:e_commerce_c18/features/products_screen/presentation/screens/products_screen.dart';
+import 'package:e_commerce_c18/features/products/presentation/product_details/presentation/screen/product_details.dart';
+import 'package:e_commerce_c18/features/products/presentation/products_screen/presentation/screens/products_screen.dart';
 import 'package:flutter/material.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

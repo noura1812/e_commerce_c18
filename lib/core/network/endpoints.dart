@@ -7,6 +7,7 @@ class Endpoints {
   static const String categories = '/categories';
   static const String products = '/products';
   static const String wishlist = '/wishlist';
+  static const String cart = '/cart';
   static String subCategoriesOfCategory(String id) => '/categories/$id/subcategories';
 
   //

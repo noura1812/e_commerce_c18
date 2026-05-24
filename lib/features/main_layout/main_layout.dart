@@ -4,7 +4,7 @@ import 'package:e_commerce_c18/core/resources/color_manager.dart';
 import 'package:e_commerce_c18/core/widget/home_screen_app_bar.dart';
 import 'package:e_commerce_c18/features/categories/presentation/cubit/categories_cubit.dart';
 import 'package:e_commerce_c18/features/categories/presentation/pages/categories_tab.dart';
-import 'package:e_commerce_c18/features/main_layout/favourite/presentation/favourite_screen.dart';
+import 'package:e_commerce_c18/features/products/presentation/favourite/presentation/favourite_screen.dart';
 import 'package:e_commerce_c18/features/main_layout/profile_tab/presentation/profile_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

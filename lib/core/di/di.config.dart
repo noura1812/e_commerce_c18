@@ -20,6 +20,16 @@ import '../../features/auth/domain/repository/auth_repo.dart' as _i976;
 import '../../features/auth/domain/usecase/login_usecase.dart' as _i911;
 import '../../features/auth/domain/usecase/sign_up_usecase.dart' as _i134;
 import '../../features/auth/presentation/cubit/auth_cubit.dart' as _i117;
+import '../../features/cart/data/repo/cart_repo_impl.dart' as _i234;
+import '../../features/cart/data/source/cart_data_source.dart' as _i132;
+import '../../features/cart/domain/repo/cart_repo.dart' as _i379;
+import '../../features/cart/domain/usecase/add_to_cart_usecase.dart' as _i738;
+import '../../features/cart/domain/usecase/get_cart_usecase.dart' as _i624;
+import '../../features/cart/domain/usecase/remove_from_cart_usecase.dart'
+    as _i308;
+import '../../features/cart/domain/usecase/update_product_in_cart_usecase.dart'
+    as _i989;
+import '../../features/cart/presentation/cubit/cart_cubit.dart' as _i499;
 import '../../features/categories/data/datasources/categories_data_source.dart'
     as _i399;
 import '../../features/categories/data/repositories/categories_repo_impl.dart'
@@ -44,9 +54,9 @@ import '../../features/products/domain/usecases/get_products_by_sub_cat.dart'
     as _i292;
 import '../../features/products/domain/usecases/get_wishlist_products_usecase.dart'
     as _i592;
-import '../../features/products/presentation/cubit/cubit/wishlist_cubit.dart'
+import '../../features/products/presentation/favourite/cubit/wishlist_cubit.dart'
     as _i101;
-import '../../features/products/presentation/cubit/products_cubit.dart'
+import '../../features/products/presentation/products_screen/cubit/products_cubit.dart'
     as _i911;
 import '../services/secured_storage_service.dart' as _i524;
 import 'model.network_dependency.dart' as _i867;
@@ -69,6 +79,15 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i524.SecuredStorageService(
         flutterSecureStorage: gh<_i558.FlutterSecureStorage>(),
       ),
+    );
+    gh.factory<_i132.CartDataSource>(
+      () => _i132.CartDataSourceImpl(
+        dio: gh<_i361.Dio>(),
+        securedStorageService: gh<_i524.SecuredStorageService>(),
+      ),
+    );
+    gh.factory<_i379.CartRepo>(
+      () => _i234.CartRepoImpl(cartDataSource: gh<_i132.CartDataSource>()),
     );
     gh.factory<_i364.AuthDataSource>(
       () => _i364.AuthNetworkDataSource(dio: gh<_i361.Dio>()),
@@ -97,6 +116,26 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i594.CategoriesRepo>(
       () => _i137.CategoriesRepoImpl(
         categoriesDataSource: gh<_i399.CategoriesDataSource>(),
+      ),
+    );
+    gh.factory<_i738.AddToCartUsecase>(
+      () => _i738.AddToCartUsecase(cartRepo: gh<_i379.CartRepo>()),
+    );
+    gh.factory<_i624.GetCartUsecase>(
+      () => _i624.GetCartUsecase(cartRepo: gh<_i379.CartRepo>()),
+    );
+    gh.factory<_i308.RemoveFromCartUsecase>(
+      () => _i308.RemoveFromCartUsecase(cartRepo: gh<_i379.CartRepo>()),
+    );
+    gh.factory<_i989.UpdateProductInCartUsecase>(
+      () => _i989.UpdateProductInCartUsecase(cartRepo: gh<_i379.CartRepo>()),
+    );
+    gh.singleton<_i499.CartCubit>(
+      () => _i499.CartCubit(
+        gh<_i624.GetCartUsecase>(),
+        gh<_i738.AddToCartUsecase>(),
+        gh<_i308.RemoveFromCartUsecase>(),
+        gh<_i989.UpdateProductInCartUsecase>(),
       ),
     );
     gh.factory<_i841.ProductsRepo>(

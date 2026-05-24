@@ -38,6 +38,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   getSubCategories() async {
     emit(state.copyWith(subLoading: true));
     CustomResponse response = await _subcategoriesUsecase(state.selectedCategory!.id!);
+
     switch (response) {
       case Success():
         emit(state.copyWith(subLoading: false, subCategories: response.data));

@@ -1,7 +1,7 @@
 import 'package:e_commerce_c18/core/resources/assets_manager.dart';
 import 'package:e_commerce_c18/core/resources/color_manager.dart';
 import 'package:e_commerce_c18/features/products/domain/entities/product_entity.dart';
-import 'package:e_commerce_c18/features/products/presentation/cubit/cubit/wishlist_cubit.dart';
+import 'package:e_commerce_c18/features/products/presentation/favourite/cubit/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +18,6 @@ class _HeartButtonState extends State<HeartButton> {
   late bool isClicked = widget.isFav;
   @override
   Widget build(BuildContext context) {
-    print('isClicked--->$isClicked');
     return InkWell(
       // radius: 25,
       customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

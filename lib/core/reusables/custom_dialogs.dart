@@ -8,6 +8,10 @@ import 'package:lottie/lottie.dart';
 
 sealed class CustomDialogs {
   void show({String? title});
+  void remove() {
+    if (navigatorKey.currentContext == null) return;
+    Navigator.pop(navigatorKey.currentContext!);
+  }
 }
 
 class LoadingDialog extends CustomDialogs {

@@ -1,18 +1,16 @@
 import 'package:e_commerce_c18/core/resources/color_manager.dart';
 import 'package:e_commerce_c18/core/resources/styles_manager.dart';
+import 'package:e_commerce_c18/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductCounter extends StatelessWidget {
   final int productCounter;
-  final void Function(int) add;
-  final void Function(int) remove;
-  const ProductCounter({
-    super.key,
-    required this.add,
-    required this.remove,
-    required this.productCounter,
-  });
+  final String productID;
+  ProductCounter({super.key, required this.productCounter, required this.productID});
+
+  late int count = productCounter;
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +24,25 @@ class ProductCounter extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              remove.call(productCounter);
+              if (count >= 2) {
+                count = count - 1;
+
+                context.read<CartCubit>().updateCart(productID, count, showLoading: true);
+              }
             },
             child: Icon(Icons.remove_circle_outline, size: 20.w, color: ColorManager.white),
           ),
           SizedBox(width: 18.w),
           Text(
-            '$productCounter',
+            '${count}',
             style: getMediumStyle(color: ColorManager.white).copyWith(fontSize: 18.sp),
           ),
           SizedBox(width: 18.w),
           InkWell(
             onTap: () {
-              add.call(productCounter);
+              count = count + 1;
+
+              context.read<CartCubit>().updateCart(productID, count, showLoading: true);
             },
             child: Icon(Icons.add_circle_outline, color: ColorManager.white, size: 20.w),
           ),

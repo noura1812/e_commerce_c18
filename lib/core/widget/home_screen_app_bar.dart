@@ -4,7 +4,8 @@ import 'package:e_commerce_c18/core/resources/font_manager.dart';
 import 'package:e_commerce_c18/core/resources/styles_manager.dart';
 import 'package:e_commerce_c18/core/resources/values_manager.dart';
 import 'package:e_commerce_c18/core/routes_manager/routes.dart';
-import 'package:e_commerce_c18/features/products/presentation/cubit/products_cubit.dart';
+import 'package:e_commerce_c18/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:e_commerce_c18/features/products/presentation/products_screen/cubit/products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -94,7 +95,12 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               IconButton(
                 onPressed: () => Navigator.pushNamed(context, Routes.cartRoute),
-                icon: ImageIcon(AssetImage(IconsAssets.icCart), color: ColorManager.primary),
+                icon: Badge.count(
+                  count: context.watch<CartCubit>().state.cartEntity?.products.length ?? 0,
+                  isLabelVisible: context.watch<CartCubit>().state.cartEntity?.products.length != 0,
+
+                  child: ImageIcon(AssetImage(IconsAssets.icCart), color: ColorManager.primary),
+                ),
               ),
             ],
           ),
